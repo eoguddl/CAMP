@@ -19,8 +19,12 @@ public class WebSecurityConfig {
                 .cors()
                     .disable()
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/login", "/join")
+                        .requestMatchers("/login")
                             .permitAll()
+                        .requestMatchers("/user")
+                            .hasRole("USER")
+                        .requestMatchers("/admin")
+                            .hasRole("ADMIN")
                         .anyRequest()
                             .authenticated()
                 )

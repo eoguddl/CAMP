@@ -1,10 +1,11 @@
 package com.example.attendance_management.config;
 
-import com.example.attendance_management.domain.user.User;
-import com.example.attendance_management.domain.user.UserRepository;
+import com.example.attendance_management.domain.user.Member;
+import com.example.attendance_management.domain.user.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,21 +20,21 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userOpt = userRepository.findByUsername(username);
+        Optional<Member> userOpt = memberRepository.findByUsername(username);
 
         if (userOpt.isPresent()) {
             log.info("USER FOUND IN THE DATABASE: {}", username);
 
-            User user = userOpt.get();
+            Member user = userOpt.get();
             Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
             authorities.add(new SimpleGrantedAuthority(user.getRole()));
 
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
+            return new User(user.getUsername(), user.getPassword(), authorities);
         } else {
             log.error("USER NOT FOUND IN THE DATABASE");
 

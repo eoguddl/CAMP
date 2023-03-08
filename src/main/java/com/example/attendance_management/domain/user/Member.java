@@ -1,9 +1,7 @@
 package com.example.attendance_management.domain.user;
 
-import com.example.attendance_management.domain.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 @Getter
@@ -11,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,11 +35,5 @@ public class User {
 
     @Column
     private Boolean approval;
-
-    public static User createUser(String name, String username,
-                            String password, String department,
-                            String position, PasswordEncoder passwordEncoder) {
-        return new User(null, name, username, passwordEncoder.encode(password), department, position, Role.USER.getKey(), false);
-    }
 
 }

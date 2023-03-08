@@ -1,6 +1,6 @@
 package com.example.attendance_management.domain.enroll;
 
-import com.example.attendance_management.domain.user.User;
+import com.example.attendance_management.domain.user.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +19,7 @@ public class Enroll {
     private Long id;
 
     @OneToOne
-    private User user;
+    private Member member;
 
     @Column
     private LocalDateTime at;

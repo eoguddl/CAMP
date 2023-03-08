@@ -23,16 +23,4 @@ public enum Position {
 
     private final String name;
 
-    public static Position findByName(String name) {
-        Position findPosition = null;
-
-        for (Position position : values()) {
-            if (position.getName().equals(name)) {
-                findPosition = position;
-                break;
-            }
-        }
-        return findPosition;
-    }
-
 }
