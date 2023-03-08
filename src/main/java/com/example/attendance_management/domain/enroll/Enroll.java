@@ -18,7 +18,6 @@ public class Enroll {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
     @OneToOne
     private User user;
 
